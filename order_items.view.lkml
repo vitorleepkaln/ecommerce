@@ -49,5 +49,29 @@ view: order_items {
     value_format_name: "usd"
   }
 
+  measure: min_order_price {
+    type: min
+    sql: ${sale_price} ;;
+    value_format_name: "usd"
+  }
+
+  measure: max_order_price {
+    type: max
+    sql: ${sale_price} ;;
+    value_format_name: "usd"
+  }
+
+  measure: avg_order_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: "usd"
+  }
+
+  measure: median_order {
+    type: median
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
 
 }
