@@ -1,5 +1,5 @@
 connection: "thelook"
-#this is a test
+#this is NOT super cool a test
 # include all the views
 include: "*.view"
 
