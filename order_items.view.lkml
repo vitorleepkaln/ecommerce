@@ -47,6 +47,7 @@ view: order_items {
     type:  sum
     sql:  ${sale_price} ;;
     value_format_name: "usd"
+    html: <b>{{rendered_value}}</b> ;;
   }
 
   measure: min_order_price {
