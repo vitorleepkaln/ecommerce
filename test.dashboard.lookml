@@ -1,9 +1,9 @@
 - dashboard: local_model_dashboard
-  title: Vitor is the best
+  title: Local Model Dashboard
   layout: newspaper
   elements:
-  - title: "# Orders MOMMA"
-    name: "# Orders MOMMA"
+  - title: "# Orders MOM"
+    name: "# Orders MOM"
     model: e_commerce
     explore: orders
     type: looker_line
@@ -16,7 +16,7 @@
     col: 0
     width: 24
     height: 6
-  - title: Top 20 sold categories
+  - title: Top 10 sold categories
     name: Top 10 sold categories
     model: e_commerce
     explore: order_items
