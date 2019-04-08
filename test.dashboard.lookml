@@ -1,5 +1,5 @@
 - dashboard: local_model_dashboard
-  title: Local Model Dashboard
+  title: TEST
   layout: newspaper
   elements:
   - title: "# Orders MOM"
