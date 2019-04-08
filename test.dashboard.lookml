@@ -2,7 +2,7 @@
   title: Vitor is the best
   layout: newspaper
   elements:
-  - title: "# Orders MOM"
+  - title: "# Orders MOMMA"
     name: "# Orders MOM"
     model: e_commerce
     explore: orders
