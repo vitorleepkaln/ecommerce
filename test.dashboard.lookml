@@ -3,7 +3,7 @@
   layout: newspaper
   elements:
   - title: "# Orders MOMMA"
-    name: "# Orders MOM"
+    name: "# Orders MOMMA"
     model: e_commerce
     explore: orders
     type: looker_line
