@@ -24,9 +24,15 @@ view: orders {
       week,
       month,
       quarter,
-      year
+      year,
+      week_of_year
     ]
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: weekyear {
+    type: string
+    sql:  CONCAT(${created_week_of_year},${created_year});;
   }
 
   dimension: status {

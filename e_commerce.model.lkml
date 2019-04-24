@@ -46,6 +46,7 @@ explore: order_items {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
+
   }
 
   join: users {
@@ -64,7 +65,9 @@ explore: orders {
 }
 
 
-explore: products {}
+explore: products {
+  #cancel_grouping_fields: [products.departmentconcat]
+}
 
 explore: schema_migrations {}
 

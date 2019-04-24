@@ -1,6 +1,10 @@
 view: products {
   sql_table_name: demo_db.products ;;
 
+  parameter: parameter1 {
+    type: string
+  }
+
   dimension: id {
     primary_key: yes
     type: number
@@ -20,6 +24,12 @@ view: products {
   dimension: department {
     type: string
     sql: ${TABLE}.department ;;
+  }
+
+  measure: departmentconcat {
+    label: "Department Concatenated"
+    type: string
+    sql: GROUP_CONCAT(DISTINCT ${department} ORDER BY ${department} SEPARATOR ', ') ;;
   }
 
   dimension: item_name {
