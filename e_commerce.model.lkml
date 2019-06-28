@@ -84,3 +84,13 @@ explore: users {
 
 explore: users_nn {
 }
+
+explore: count_month {
+  join: month {
+  from:count_month
+    type: left_outer
+    sql_on: ${count_month.created_month} = ${month.created_month} ;;
+    relationship: one_to_one
+
+  }
+}

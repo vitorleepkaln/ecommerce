@@ -36,6 +36,7 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+    html: {{ rendered_value }} ;;
   }
 
   measure: count {
@@ -46,6 +47,22 @@ view: order_items {
   measure: total_sale_price {
     type:  sum
     sql:  ${sale_price} ;;
+    # value_format: "#,##0"
+    html:<b>$ {{rendered_value | round}}</b> ;;
+  }
+
+  measure: sale_offset {
+    type: number
+    sql: group_concat(${sale_price}) ;;
+  }
+
+  measure: total_sale_price_men {
+    type:  sum
+    sql:  ${sale_price} ;;
+#     filters: {
+#       field: products.department
+#       value: "Men"
+#     }
     value_format_name: "usd"
     html: <b>{{rendered_value}}</b> ;;
   }
