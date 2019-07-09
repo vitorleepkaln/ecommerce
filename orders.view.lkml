@@ -2,6 +2,7 @@ view: orders {
   sql_table_name: demo_db.orders ;;
 
   dimension: id {
+    label: "Orders ID"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -51,6 +52,7 @@ drill_fields: [id, status]
 
   dimension: status {
     type: string
+    label: "Order Status"
     sql: ${TABLE}.status ;;
     # hidden: yes
   }

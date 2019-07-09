@@ -47,9 +47,9 @@ view: order_items {
   measure: total_sale_price {
     type:  sum
     sql:  ${sale_price} ;;
-    # value_format: "#,##0"
-    html:<b>$ {{rendered_value | round}}</b> ;;
-  }
+    value_format_name:usd_0
+    drill_fields: [orders.id, total_sale_price]
+    html: <br> Value: {{value}} </br> <br> {% if orders.id %} {{ orders.id._value }} {% else %} {% endif %} </br> ;; }
 
   measure: sale_offset {
     type: number
@@ -59,10 +59,14 @@ view: order_items {
   measure: total_sale_price_men {
     type:  sum
     sql:  ${sale_price} ;;
-#     filters: {
-#       field: products.department
-#       value: "Men"
-#     }
+    filters: {
+      field: products.department
+      value: "Men,Woman"
+    }
+    filters: {
+      field: orders.status
+      value: "completed"
+    }
     value_format_name: "usd"
     html: <b>{{rendered_value}}</b> ;;
   }
@@ -90,6 +94,4 @@ view: order_items {
     sql: ${sale_price} ;;
     value_format_name: usd
   }
-
-
 }

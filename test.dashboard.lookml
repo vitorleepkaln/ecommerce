@@ -1,6 +1,12 @@
-- dashboard: local_model_dashboard
+- dashboard: test
   title: TEST
   layout: newspaper
+  embed_style:
+    background_color: "#6998fa"
+    show_title: false
+    title_color: "#3a4245"
+    show_filters_bar: true
+    tile_text_color: "#3a4245"
   elements:
   - title: "# Orders MOM"
     name: "# Orders MOM"
@@ -12,9 +18,11 @@
     sorts: [orders.created_month desc]
     limit: 500
     query_timezone: America/Los_Angeles
-    row: 6
+    listen:
+      Untitled Filter: orders.created_month
+    row: 24
     col: 0
-    width: 24
+    width: 8
     height: 6
   - title: Top 10 sold categories
     name: Top 10 sold categories
@@ -26,10 +34,11 @@
     limit: 10
     query_timezone: America/Los_Angeles
     series_types: {}
-    listen: {}
-    row: 12
-    col: 0
-    width: 13
+    listen:
+      Untitled Filter: orders.created_month
+    row: 29
+    col: 8
+    width: 8
     height: 6
   - title: States x Orders
     name: States x Orders
@@ -45,10 +54,14 @@
     map_latitude: 38.35458032659834
     map_longitude: -83.79066467285158
     map_zoom: 4
-    row: 12
-    col: 13
-    width: 11
-    height: 11
+    listen:
+      Untitled Filter: orders.created_month
+    row: 29
+    col: 16
+    width: 8
+    height: 6
+
+
   - title: Orders by Gender
     name: Orders by Gender
     model: e_commerce
@@ -67,8 +80,10 @@
     map_longitude: -83.79066467285158
     map_zoom: 4
     hidden_fields: [users.gender]
-    row: 0
-    col: 13
+    listen:
+      Untitled Filter: orders.created_month
+    row: 6
+    col: 0
     width: 8
     height: 6
   - title: Total Revenue
@@ -85,7 +100,20 @@
     map_longitude: -83.79066467285158
     map_zoom: 4
     hidden_fields: []
+    listen:
+      Untitled Filter: orders.created_month
     row: 0
-    col: 5
+    col: 0
     width: 8
     height: 6
+  filters:
+  - name: Untitled Filter
+    title: Untitled Filter
+    type: field_filter
+    default_value: 3 months
+    allow_multiple_values: true
+    required: false
+    model: e_commerce
+    explore: order_items
+    listens_to_filters: []
+    field: orders.created_month
