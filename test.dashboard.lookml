@@ -22,7 +22,7 @@
       Untitled Filter: orders.created_month
     row: 24
     col: 0
-    width: 20
+    width: 40
     height: 6
   - title: Top 10 sold categories
     name: Top 10 sold categories
