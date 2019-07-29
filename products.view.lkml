@@ -56,4 +56,33 @@ view: products {
     type: count
     drill_fields: [id, item_name, inventory_items.count]
   }
+
+
+  filter: category_select {
+    suggest_dimension: products.category
+  }
+
+  dimension: category_comparitor {
+    type: string
+    sql:
+    CASE
+      WHEN {% condition category_select %} ${category} {% endcondition %}
+        THEN ${category}
+      ELSE 'Rest of Categories'
+    END ;;
+  }
+
+  measure: percent_of_total {
+    type: percent_of_total
+    sql: ${count} ;;
+  }
+
+
+
+
+  measure: percent_socks {
+    type: number
+    sql:  ;;
+  }
+
 }

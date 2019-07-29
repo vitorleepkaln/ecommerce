@@ -54,6 +54,9 @@ drill_fields: [id, status]
     type: string
     label: "Order Status"
     sql: ${TABLE}.status ;;
+    suggest_dimension: status
+    suggestable: yes
+    suggestions: ["complete"]
     # hidden: yes
   }
 
@@ -90,6 +93,8 @@ drill_fields: [id, status]
     #   url: "{{ link }}"
 
     # }
+
+    drill_fields: [id,order_items.total_sale_price]
   }
 
   measure: count_may {

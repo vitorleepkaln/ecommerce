@@ -49,7 +49,12 @@ view: order_items {
     sql:  ${sale_price} ;;
     value_format_name:usd_0
     drill_fields: [orders.id, total_sale_price]
-    html: <br> Value: {{value}} </br> <br> {% if orders.id %} {{ orders.id._value }} {% else %} {% endif %} </br> ;; }
+#     html: <br> Value: {{value}} </br> <br> {% if orders.id %} {{ orders.id._value }} {% else %} {% endif %} </br> ;;
+link: {
+  label: "test"
+url: "https://localhost:9999/explore/e_commerce/order_items?fields=orders.id,orders.created_date,order_items.total_sale_price&f_filters['orders.status']"
+}
+}
 
   measure: sale_offset {
     type: number
