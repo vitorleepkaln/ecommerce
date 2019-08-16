@@ -3,7 +3,6 @@ connection: "thelook"
 #this is SUPER COOL a test
 # include all the views
 include: "*.view"
-include: "*.dashboard"
 
 datagroup: e_commerce_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
