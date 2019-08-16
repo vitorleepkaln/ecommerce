@@ -15,6 +15,10 @@ view: orders {
 #         <style="color:red">{{value}}</style>
 #       {% endif %} ;;
 drill_fields: [id, status]
+link: {
+  label: "test liquid filter"
+  url: "https://localhost:9999/looks/9?&f[orders.id]={{ value }}"
+}
 
   }
 
@@ -29,10 +33,12 @@ drill_fields: [id, status]
       quarter,
       year,
       week_of_year,
-      month_name
+      month_name,
+      day_of_month,
     ]
     sql: ${TABLE}.created_at ;;
   }
+
 
   parameter: test {
     default_value: "yes"
@@ -54,9 +60,36 @@ drill_fields: [id, status]
     type: string
     label: "Order Status"
     sql: ${TABLE}.status ;;
-    suggest_dimension: status
-    suggestable: yes
-    suggestions: ["complete"]
+# case: {
+#   when: {
+#     sql: ${TABLE}.status = "complete"  ;;
+#     label: "complete"
+#   }
+
+#   when: {
+#     sql: ${TABLE}.status = "pending"  ;;
+#     label: "pending"
+#   }
+#   when: {
+#     sql: ${TABLE}.status = "cancelled"  ;;
+#     label: "cancelled"
+#   }
+
+#   when: {
+#     sql: coalesce(${TABLE}.status,"null") = "'null'"  ;;
+#     label: "null"
+#   }}
+# sql: CASE WHEN
+# ${TABLE}.status = "complete" THEN "complete"
+# WHEN ${TABLE}.status = "pending" THEN "pending"
+# WHEN ${TABLE}.status = "canceled" THEN "canceled"
+# ELSE COALESCE(${TABLE}.status,"null")
+# END
+# ;;
+
+    # suggest_dimension: status
+    # suggestable: yes
+    # suggestions: ["complete"]
     # hidden: yes
   }
 
@@ -94,8 +127,9 @@ drill_fields: [id, status]
 
     # }
 
-    drill_fields: [id,order_items.total_sale_price]
+#     drill_fields: [id,order_items.total_sale_price]
   }
+
 
   measure: count_may {
     type: count
@@ -105,4 +139,22 @@ drill_fields: [id, status]
     }
 
   }
+
+  measure: ten {
+    type: number
+    sql: 10 ;;
+  }
+
+  measure: negative_10 {
+    type: number
+    sql: -10 ;;
+  }
+
+  measure: format_10 {
+    type: number
+    sql: -10 ;;
+    value_format: "$#,##0.00;($#,##0.00)"
+
+  }
+
 }

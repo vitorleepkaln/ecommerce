@@ -99,4 +99,8 @@ url: "https://localhost:9999/explore/e_commerce/order_items?fields=orders.id,ord
     sql: ${sale_price} ;;
     value_format_name: usd
   }
+
+  parameter: yesno {
+    type: string
+  }
 }

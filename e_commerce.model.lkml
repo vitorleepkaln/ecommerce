@@ -30,7 +30,9 @@ explore: inventory_items {
 }
 
 explore: order_items {
+  # sql_always_where: ${orders.status} IS NOT NULL;;
   join: inventory_items {
+    # from: inventory_items
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
@@ -94,3 +96,5 @@ explore: count_month {
 
   }
 }
+
+explore: pdt_test {}

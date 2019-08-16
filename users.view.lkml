@@ -7,6 +7,11 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: id_length_1 {
+    type: yesno
+    sql: (length(${id})) = 1;;
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
