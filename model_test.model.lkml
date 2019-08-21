@@ -18,7 +18,7 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
-include: "*.view"
+# include: "*.view"
 
 explore: order_items {
   # sql_always_where: ${orders.status} IS NOT NULL;;
