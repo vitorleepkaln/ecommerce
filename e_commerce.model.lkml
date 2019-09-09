@@ -20,16 +20,26 @@ explore: events {
   }
 }
 
+test: test_there_are_users {
+  explore_source: users {
+    column: count {}
+  }
+  assert: there_is_data {
+    expression: ${users.count} > 0 ;;
+  }
+}
+
 explore: inventory_items {
-#   join: products {
-#     type: left_outer
-#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
-#     relationship: many_to_one
-#   }
+  join: products {
+    type: left_outer
+    sql_on: ${inventory_items.product_id} = ${products.id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: order_items {
   # sql_always_where: ${orders.status} IS NOT NULL;;
+
   join: inventory_items {
     # from: inventory_items
     type: left_outer
@@ -58,6 +68,15 @@ explore: order_items {
 }
 
 explore: orders {
+  join: users {
+    type: left_outer
+    sql_on: ${orders.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+}
+
+explore: orders_2 {
+  view_name: orders
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;

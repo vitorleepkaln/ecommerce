@@ -50,7 +50,27 @@ view: users {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
-    suggestions: ["Anne"]
+    html:
+    {% if name_from._parameter_value == blank %}
+      {{ value }}
+    {% else %}
+      {% if name_from._parameter_value == value %}
+        {{ name_to._parameter_value }}
+      {% else %}
+        {{ value }}
+      {% endif %}
+      {% endif %}
+
+    ;;
+
+  }
+
+  parameter: name_from {
+    type: unquoted
+  }
+
+  parameter: name_to {
+    type: string
   }
 
   dimension: gender {

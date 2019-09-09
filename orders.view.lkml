@@ -2,25 +2,37 @@ view: orders {
   sql_table_name: demo_db.orders ;;
 
   dimension: id {
-    label: "Orders ID"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-#     html:
-#       {% if orders.status._value == 'complete' %}
-#         <b>{{value}}</b>
-#       {% elsif orders.status._value == 'pending' %}
-#         <i>{{value}}</i>
-#       {% else %}
-#         <style="color:red">{{value}}</style>
-#       {% endif %} ;;
-drill_fields: [id, status]
-link: {
-  label: "test liquid filter"
-  url: "https://localhost:9999/looks/9?&f[orders.id]={{ value }}"
-}
-
+    drill_fields: [id, status]
+    link: {
+      label: "test liquid filter"
+      url: "https://localhost:9999/looks/9?&f[orders.id]={{ value }}"
+    }
   }
+
+  parameter: timeframe_picker {
+    label: "Date Granularity"
+    type: string
+    allowed_value: { value: "Date" }
+    allowed_value: { value: "Week" }
+    allowed_value: { value: "Month" }
+    allowed_value: { value: "Quarter" }
+    default_value: "Date"
+  }
+
+  dimension: dynamic_timeframe {
+    type: date
+    sql:
+    CASE
+      WHEN {% parameter timeframe_picker %} = 'Date' THEN ${orders.created_date}
+      WHEN {% parameter timeframe_picker %} = 'Week' THEN ${orders.created_week}
+      WHEN{% parameter timeframe_picker %} = 'Month' THEN ${orders.created_month}
+      WHEN{% parameter timeframe_picker %} = 'Quarter' THEN ${orders.created_quarter}
+    END ;;
+  }
+  # WHEN{% parameter timeframe_picker %} = 'Quarter' THEN CONCAT(${orders.created_year},'-',${created_quarter_of_year})
 
   dimension_group: created {
     type: time
@@ -35,10 +47,14 @@ link: {
       week_of_year,
       month_name,
       day_of_month,
+      quarter_of_year
     ]
     sql: ${TABLE}.created_at ;;
   }
 
+filter: date_filter  {
+  type: date
+}
 
   parameter: test {
     default_value: "yes"
@@ -60,47 +76,10 @@ link: {
     type: string
     label: "Order Status"
     sql: ${TABLE}.status ;;
-# case: {
-#   when: {
-#     sql: ${TABLE}.status = "complete"  ;;
-#     label: "complete"
-#   }
-
-#   when: {
-#     sql: ${TABLE}.status = "pending"  ;;
-#     label: "pending"
-#   }
-#   when: {
-#     sql: ${TABLE}.status = "cancelled"  ;;
-#     label: "cancelled"
-#   }
-
-#   when: {
-#     sql: coalesce(${TABLE}.status,"null") = "'null'"  ;;
-#     label: "null"
-#   }}
-# sql: CASE WHEN
-# ${TABLE}.status = "complete" THEN "complete"
-# WHEN ${TABLE}.status = "pending" THEN "pending"
-# WHEN ${TABLE}.status = "canceled" THEN "canceled"
-# ELSE COALESCE(${TABLE}.status,"null")
-# END
-# ;;
-
-    # suggest_dimension: status
-    # suggestable: yes
-    # suggestions: ["complete"]
-    # hidden: yes
+    drill_fields: [id]
   }
 
-  dimension: filter {
-    type: yesno
-    sql: ${created_year} IN (2018,2019) AND
-    CASE WHEN
-    ${created_year} = 2019 THEN ${created_month_name}  = "January"
-    WHEN ${created_year} = 2018 THEN ${created_month_name} = "February"
-    END ;;
-  }
+
   dimension: user_id {
     type: number
     # hidden: yes
@@ -156,5 +135,14 @@ link: {
     value_format: "$#,##0.00;($#,##0.00)"
 
   }
+
+#   dimension: filter {
+#     type: yesno
+#     sql: ${created_year} IN (2018,2019) AND
+#           CASE WHEN
+#           ${created_year} = 2019 THEN ${created_month_name}  = "January"
+#           WHEN ${created_year} = 2018 THEN ${created_month_name} = "February"
+#           END ;;
+#   }
 
 }

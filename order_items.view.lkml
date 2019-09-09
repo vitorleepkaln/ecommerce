@@ -31,6 +31,12 @@ view: order_items {
       year
     ]
     sql: ${TABLE}.returned_at ;;
+    label: "Test"
+  }
+
+  dimension: returned_date2{
+    type: date
+    sql: ${returned_date} ;;
   }
 
   dimension: sale_price {
@@ -54,6 +60,26 @@ link: {
   label: "test"
 url: "https://localhost:9999/explore/e_commerce/order_items?fields=orders.id,orders.created_date,order_items.total_sale_price&f_filters['orders.status']"
 }
+required_fields: [order_items.men]
+}
+
+  measure: total_sale_price_new {
+    type:  sum
+    sql:  ${sale_price} ;;
+    value_format_name:usd_0
+    drill_fields: [orders.id, total_sale_price]
+#     html: <br> Value: {{value}} </br> <br> {% if orders.id %} {{ orders.id._value }} {% else %} {% endif %} </br> ;;
+    link: {
+      label: "test"
+      url: "https://localhost:9999/explore/e_commerce/order_items?fields=orders.id,orders.created_date,order_items.total_sale_price&f_filters['orders.status']"
+    }
+    required_fields: [order_items.men]
+  }
+
+filter: men {
+  type: yesno
+  sql: ${products.department} = "men" ;;
+
 }
 
   measure: sale_offset {
