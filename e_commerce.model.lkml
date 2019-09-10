@@ -10,7 +10,7 @@ datagroup: e_commerce_default_datagroup {
   max_cache_age: "2 hours"
 }
 
-persist_with: e_commerce_default_datagroup
+# persist_with: e_commerce_default_datagroup
 
 
 explore: events {
