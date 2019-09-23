@@ -47,14 +47,15 @@ view: orders {
       week_of_year,
       month_name,
       day_of_month,
-      quarter_of_year
+      quarter_of_year,
+      day_of_week
     ]
     sql: ${TABLE}.created_at ;;
   }
 
-filter: date_filter  {
-  type: date
-}
+  filter: date_filter  {
+    type: date
+  }
 
   parameter: test {
     default_value: "yes"
@@ -77,6 +78,14 @@ filter: date_filter  {
     label: "Order Status"
     sql: ${TABLE}.status ;;
     drill_fields: [id]
+  }
+
+  dimension: status_case {
+    type: string
+    sql: CASE
+          WHEN ${status} = "complete" THEN ${id}
+          ELSE ${created_date}
+          END;;
   }
 
 
@@ -136,13 +145,8 @@ filter: date_filter  {
 
   }
 
-#   dimension: filter {
-#     type: yesno
-#     sql: ${created_year} IN (2018,2019) AND
-#           CASE WHEN
-#           ${created_year} = 2019 THEN ${created_month_name}  = "January"
-#           WHEN ${created_year} = 2018 THEN ${created_month_name} = "February"
-#           END ;;
-#   }
-
+  dimension: fake_year {
+    type: number
+    sql: 2019;;
+  }
 }
