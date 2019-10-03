@@ -10,6 +10,8 @@ datagroup: e_commerce_default_datagroup {
   max_cache_age: "2 hours"
 }
 
+label: "E-commerce Project"
+
 
 # persist_with: e_commerce_default_datagroup
 
