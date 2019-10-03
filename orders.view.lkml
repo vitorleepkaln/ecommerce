@@ -53,6 +53,11 @@ view: orders {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: status_new {
+    type: yesno
+    sql: ${status} = "complete" ;;
+    }
+
   filter: date_filter  {
     type: date
   }
@@ -133,7 +138,7 @@ view: orders {
     sql: 10 ;;
   }
 
-  measure: negative_10 {
+  measure: Negative_Ten {
     type: number
     sql: -10 ;;
   }

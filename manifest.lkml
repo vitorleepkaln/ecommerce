@@ -1,8 +1,5 @@
 project_name: "e-commerce"
 
-# # Use local_dependency: To enable referencing of another project
-# # on this instance with include: statements
-#
-# local_dependency: {
-#   project: "name_of_other_project"
-# }
+constant: views {
+  value: "${{{ test_derived_table.view._parameter_value }}.SQL_TABLE_NAME}"
+}
