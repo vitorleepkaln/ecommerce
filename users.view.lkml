@@ -42,7 +42,7 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: email {
+  dimension: emails {
     type: string
     sql: ${TABLE}.email ;;
   }
